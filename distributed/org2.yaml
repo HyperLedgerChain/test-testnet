@@ -1,0 +1,57 @@
+# COPYRIGHT Hello Corp. All Rights Reserved.
+#
+# Author: Haley
+#
+
+version: '2'
+
+services:
+  peer0.org2.example.com:
+    extends:
+      file: peer-base.yaml
+      service: peer-base
+    container_name: peer0.org2.example.com
+    environment:
+      - CORE_PEER_ID=peer0.org2.example.com
+      - CORE_PEER_ADDRESS=23.91.102.163:7051
+      - CORE_PEER_GOSSIP_EXTERNALENDPOINT=23.91.102.163:7051
+      - CORE_PEER_GOSSIP_BOOTSTRAP=23.91.102.163:7151
+      - CORE_PEER_CHAINCODELISTENADDRESS=peer0.org2.example.com:7052
+      - CORE_PEER_LOCALMSPID=Org2MSP
+    volumes:
+      - /var/run/:/host/var/run/
+      - ./crypto-config/peerOrganizations/org2.example.com/peers/peer0.org2.example.com/msp:/etc/hyperledger/fabric/msp
+      - ./crypto-config/peerOrganizations/org2.example.com/peers/peer0.org2.example.com/tls:/etc/hyperledger/fabric/tls
+    ports:
+      - 7051:7051
+      - 7052:7052
+      - 7053:7053
+    extra_hosts:
+      - "orderer1.example.com:18.179.212.4"
+      - "orderer2.example.com:18.179.212.4"
+      - "orderer3.example.com:18.179.212.4"
+
+  peer1.org2.example.com:
+    extends:
+      file: peer-base.yaml
+      service: peer-base
+    container_name: peer1.org2.example.com
+    environment:
+      - CORE_PEER_ID=peer1.org2.example.com
+      - CORE_PEER_ADDRESS=23.91.102.163:7151
+      - CORE_PEER_GOSSIP_EXTERNALENDPOINT=23.91.102.163:7151
+      - CORE_PEER_GOSSIP_BOOTSTRAP=23.91.102.163:7051
+      - CORE_PEER_CHAINCODELISTENADDRESS=peer1.org2.example.com:7052
+      - CORE_PEER_LOCALMSPID=Org2MSP
+    volumes:
+      - /var/run/:/host/var/run/
+      - ./crypto-config/peerOrganizations/org2.example.com/peers/peer1.org2.example.com/msp:/etc/hyperledger/fabric/msp
+      - ./crypto-config/peerOrganizations/org2.example.com/peers/peer1.org2.example.com/tls:/etc/hyperledger/fabric/tls
+    ports:
+      - 7151:7051
+      - 7152:7052
+      - 7153:7053
+    extra_hosts:
+      - "orderer1.example.com:18.179.212.4"
+      - "orderer2.example.com:18.179.212.4"
+      - "orderer3.example.com:18.179.212.4"
