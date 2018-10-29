@@ -104,7 +104,7 @@ function removeUnwantedImages() {
   fi
 }
 
-# Versions of fabric known not to work with this release of first-network
+# Versions of fabric known not to work with this release of distributed
 BLACKLISTED_VERSIONS="^1\.0\. ^1\.1\.0-preview ^1\.1\.0-alpha"
 
 # Do some basic sanity checking to make sure that the appropriate versions of fabric

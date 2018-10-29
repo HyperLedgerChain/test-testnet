@@ -17,7 +17,7 @@ services:
 #      - '2888'
 #      - '3888'
     networks:
-      - byfn
+      - default
 
   kafka:
     image: hyperledger/fabric-kafka:0.4.13
@@ -32,4 +32,4 @@ services:
 #    ports:
 #      - '9092'
     networks:
-      - byfn
+      - default
