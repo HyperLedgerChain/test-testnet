@@ -369,12 +369,12 @@ CLI_DELAY=3
 # channel name defaults to "mychannel"
 CHANNEL_NAME="mychannel"
 # use this as the default docker-compose yaml definition
-COMPOSE_FILE=docker-compose-cli.yaml
+COMPOSE_FILE=machine1.yaml
 #
 # use golang as the default language for chaincode
 LANGUAGE=golang
 # default image tag
-IMAGETAG="latest"
+IMAGETAG="1.3.0"
 # Parse commandline args
 if [ "$1" = "-m" ]; then # supports old usage, muscle memory is powerful!
   shift
