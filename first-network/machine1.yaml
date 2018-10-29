@@ -5,6 +5,9 @@
 
 version: '2'
 
+networks:
+  byfn:
+    
 services:
   zk1:
     extends:
