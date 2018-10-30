@@ -45,9 +45,9 @@ setGlobals() {
     CORE_PEER_TLS_ROOTCERT_FILE=$PEER0_ORG2_CA
     CORE_PEER_MSPCONFIGPATH=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/org2.example.com/users/Admin@org2.example.com/msp
     if [ $PEER -eq 0 ]; then
-      CORE_PEER_ADDRESS=172.31.0.28:9051
+      CORE_PEER_ADDRESS=23.91.102.163:7051
     else
-      CORE_PEER_ADDRESS=172.31.0.28:10051
+      CORE_PEER_ADDRESS=23.91.102.163:7151
     fi
   else
     echo "================== ERROR !!! ORG Unknown =================="
@@ -294,7 +294,7 @@ chaincodeInvoke() {
   # it using the "-o" option
   if [ -z "$CORE_PEER_TLS_ENABLED" -o "$CORE_PEER_TLS_ENABLED" = "false" ]; then
     set -x
-    PEER_CONN_PARMS="--peerAddresses peer0.org1.example.com:7051 --peerAddresses 172.31.0.28:9051"
+    PEER_CONN_PARMS="--peerAddresses peer0.org1.example.com:7051 --peerAddresses 23.91.102.163:7051"
     peer chaincode invoke -o orderer1.example.com:7050 -C $CHANNEL_NAME -n mycc $PEER_CONN_PARMS -c '{"Args":["invoke","a","b","10"]}' >&log.txt
     res=$?
     set +x
