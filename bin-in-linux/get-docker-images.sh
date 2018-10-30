@@ -25,3 +25,13 @@ for image in ${THIRDPARTY_IMAGES[@]}; do
   echo "Pulling ${DOCKER_NS}/$image:${BASE_DOCKER_TAG}"
   docker pull ${DOCKER_NS}/$image:${BASE_DOCKER_TAG}
 done
+
+if [ "$1" = latest ]; then
+  docker tag c056cd9890e7 docker.io/hyperledger/fabric-tools:latest
+  docker tag f430f581b46b docker.io/hyperledger/fabric-orderer:latest
+  docker tag f3ea63abddaa docker.io/hyperledger/fabric-peer:latest
+  docker tag 953124d80237 docker.io/hyperledger/fabric-ccenv:latest
+  docker tag 1d3266e01e64 docker.io/hyperledger/fabric-couchdb:latest
+  docker tag 4121ea662c47 docker.io/hyperledger/fabric-kafka:latest
+  docker tag e62e0af39193 docker.io/hyperledger/fabric-zookeeper:latest
+fi
