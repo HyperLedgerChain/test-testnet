@@ -12,6 +12,10 @@ cd test-testnet/bin
 
 主机1：18.179.212.4（东京） 主机2：52.83.251.211（宁夏）
 
+进入目录 : 
+
+ cd ../distributed/
+
 主机2上先执行： 
 
 docker stop $(docker ps -q);  docker rm \$(docker ps -aq) 
