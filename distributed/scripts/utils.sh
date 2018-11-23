@@ -8,7 +8,9 @@
 
 ORDERER_CA=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/ordererOrganizations/example.com/orderers/orderer1.example.com/msp/tlscacerts/tlsca.example.com-cert.pem
 PEER0_ORG1_CA=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/org1.example.com/peers/peer0.org1.example.com/tls/ca.crt
+PEER1_ORG1_CA=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/org1.example.com/peers/peer1.org1.example.com/tls/ca.crt
 PEER0_ORG2_CA=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/org2.example.com/peers/peer0.org2.example.com/tls/ca.crt
+PEER1_ORG2_CA=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/org2.example.com/peers/peer1.org2.example.com/tls/ca.crt
 PEER0_ORG3_CA=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/org3.example.com/peers/peer0.org3.example.com/tls/ca.crt
 
 # verify the result of the end-to-end test
@@ -42,12 +44,13 @@ setGlobals() {
     fi
   elif [ $ORG -eq 2 ]; then
     CORE_PEER_LOCALMSPID="Org2MSP"
-    CORE_PEER_TLS_ROOTCERT_FILE=$PEER0_ORG2_CA
     CORE_PEER_MSPCONFIGPATH=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/org2.example.com/users/Admin@org2.example.com/msp
     if [ $PEER -eq 0 ]; then
-      CORE_PEER_ADDRESS=52.83.251.211:8021
+      CORE_PEER_ADDRESS=peer0.org2.example.com:8021
+      CORE_PEER_TLS_ROOTCERT_FILE=$PEER0_ORG2_CA
     else
-      CORE_PEER_ADDRESS=52.83.251.211:8031
+      CORE_PEER_ADDRESS=peer1.org2.example.com:8031
+      CORE_PEER_TLS_ROOTCERT_FILE=$PEER1_ORG2_CA
     fi
   else
     echo "================== ERROR !!! ORG Unknown =================="
@@ -269,7 +272,16 @@ parsePeerConnectionParameters() {
   while [ "$#" -gt 0 ]; do
     PEER="peer$1.org$2"
     PEERS="$PEERS $PEER"
-    PEER_CONN_PARMS="$PEER_CONN_PARMS --peerAddresses $PEER.example.com:7051"
+    if [ $2 -eq 2 ]; then
+      if [ $1 -eq 0 ]; then
+          PEER_CONN_PARMS="$PEER_CONN_PARMS --peerAddresses $PEER.example.com:8021"
+      else
+          PEER_CONN_PARMS="$PEER_CONN_PARMS --peerAddresses $PEER.example.com:8031"
+      fi
+    else
+      PEER_CONN_PARMS="$PEER_CONN_PARMS --peerAddresses $PEER.example.com:7051"
+    fi
+
     if [ -z "$CORE_PEER_TLS_ENABLED" -o "$CORE_PEER_TLS_ENABLED" = "true" ]; then
       TLSINFO=$(eval echo "--tlsRootCertFiles \$PEER$1_ORG$2_CA")
       PEER_CONN_PARMS="$PEER_CONN_PARMS $TLSINFO"
@@ -300,6 +312,7 @@ chaincodeInvoke() {
     set +x
   else
     set -x
+#    PEER_CONN_PARMS="--peerAddresses peer0.org1.example.com:7051 --peerAddresses peer0.org2.example.com:8021"
     peer chaincode invoke -o orderer1.example.com:7050 --tls $CORE_PEER_TLS_ENABLED --cafile $ORDERER_CA -C $CHANNEL_NAME -n mycc $PEER_CONN_PARMS -c '{"Args":["invoke","a","b","10"]}' >&log.txt
     res=$?
     set +x
