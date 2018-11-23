@@ -13,10 +13,11 @@ services:
     container_name: peer0.org2.example.com
     environment:
       - CORE_PEER_ID=peer0.org2.example.com
-      - CORE_PEER_ADDRESS=52.83.251.211:8021
-      - CORE_PEER_GOSSIP_EXTERNALENDPOINT=52.83.251.211:8021
-      - CORE_PEER_GOSSIP_BOOTSTRAP=52.83.251.211:8031
-      - CORE_PEER_CHAINCODELISTENADDRESS=peer0.org2.example.com:7052
+      - CORE_PEER_ADDRESS=peer0.org2.example.com:7051
+#      - CORE_PEER_GOSSIP_BOOTSTRAP=peer0.org2.example.com:7051
+      - CORE_PEER_GOSSIP_EXTERNALENDPOINT=peer0.org2.example.com:7051
+      - CORE_PEER_CHAINCODEADDRESS=peer0.org2.example.com:7052
+      - CORE_PEER_CHAINCODELISTENADDRESS=0.0.0.0:7052
       - CORE_PEER_LOCALMSPID=Org2MSP
     volumes:
       - /var/run/:/host/var/run/
@@ -38,10 +39,11 @@ services:
     container_name: peer1.org2.example.com
     environment:
       - CORE_PEER_ID=peer1.org2.example.com
-      - CORE_PEER_ADDRESS=52.83.251.211:8031
-      - CORE_PEER_GOSSIP_EXTERNALENDPOINT=52.83.251.211:8031
-      - CORE_PEER_GOSSIP_BOOTSTRAP=52.83.251.211:8021
-      - CORE_PEER_CHAINCODELISTENADDRESS=peer1.org2.example.com:7052
+      - CORE_PEER_ADDRESS=peer1.org2.example.com:7051
+      - CORE_PEER_GOSSIP_EXTERNALENDPOINT=peer1.org2.example.com:7051
+      - CORE_PEER_GOSSIP_BOOTSTRAP=peer0.org2.example.com:7051
+      - CORE_PEER_CHAINCODEADDRESS=peer1.org2.example.com:7052
+      - CORE_PEER_CHAINCODELISTENADDRESS=0.0.0.0:7052
       - CORE_PEER_LOCALMSPID=Org2MSP
     volumes:
       - /var/run/:/host/var/run/
