@@ -68,7 +68,36 @@ joinChannel () {
 	done
 }
 
+#checkOSNAvailability() {
+#        CORE_PEER_LOCALMSPID="OrdererMSP"
+#        CORE_PEER_TLS_ROOTCERT_FILE=$ORDERER_CA
+#        CORE_PEER_MSPCONFIGPATH=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/ordererOrganizations/example.com/orderers/orderer1.example.com/msp
+#        local rc=1
+#        local starttime=$(date +%s)
+#
+#        while test "$(($(date +%s)-starttime))" -lt "$TIMEOUT" -a $rc -ne 0
+#        do
+#                 sleep 3
+#                 echo "Attempting to fetch system channel 'testchainid' ...$(($(date +%s)-starttime)) secs"
+#                 if [ -z "$CORE_PEER_TLS_ENABLED" -o "$CORE_PEER_TLS_ENABLED" = "false" ]; then
+#                         peer channel fetch 0 -o orderer1.example.com:7050 -c "testchainid" >&log.txt
+#                 else
+#                         peer channel fetch 0 0_block.pb -o orderer1.example.com:7050 -c "testchainid" --tls --cafile $ORDERER_CA >&log.txt 
+#                 fi
+#                 test $? -eq 0 && VALUE=$(cat log.txt | awk '/Received block/ {print $NF}')
+#                 test "$VALUE" = "0" && let rc=0
+#        done
+#        cat log.txt
+#        verifyResult $rc "Ordering Service is not available, Please try again ..."
+#        echo "===================== Ordering Service is up and running ===================== "
+#        echo
+#}
+
+#checkOSNAvailability
+
 ## Create channel
+echo "sleep 20s"
+sleep 20
 echo "Creating channel..."
 createChannel
 
@@ -110,8 +139,8 @@ chaincodeInvoke 0 1 0 2
 
 
 # Query on chaincode on peer1.org2, check if the result is 90
-#echo "Querying chaincode on peer1.org2..."
-#chaincodeQuery 1 2 90
+echo "Querying chaincode on peer1.org2..."
+chaincodeQuery 1 2 90
 
 echo
 echo "========= All GOOD, BYFN execution completed =========== "
