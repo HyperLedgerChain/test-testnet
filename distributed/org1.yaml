@@ -26,10 +26,10 @@ services:
       - 8028:7051
       - 8029:7052
       - 8030:7053
-#    extra_hosts:
-#      - "orderer1.example.com:18.179.212.4"
-#      - "orderer2.example.com:18.179.212.4"
-#      - "orderer3.example.com:18.179.212.4"
+    extra_hosts:
+      - "orderer1.example.com:18.179.212.4"
+      - "orderer2.example.com:18.179.212.4"
+      - "orderer3.example.com:18.179.212.4"
 
   peer1.org1.example.com:
     extends:
@@ -51,8 +51,8 @@ services:
       - 8031:7051
       - 8032:7052
       - 8033:7053
-#    extra_hosts:
-#      - "orderer1.example.com:18.179.212.4"
-#      - "orderer2.example.com:18.179.212.4"
-#      - "orderer3.example.com:18.179.212.4"
+    extra_hosts:
+      - "orderer1.example.com:18.179.212.4"
+      - "orderer2.example.com:18.179.212.4"
+      - "orderer3.example.com:18.179.212.4"
 
