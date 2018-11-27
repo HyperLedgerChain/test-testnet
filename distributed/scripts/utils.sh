@@ -306,7 +306,7 @@ chaincodeInvoke() {
   # it using the "-o" option
   if [ -z "$CORE_PEER_TLS_ENABLED" -o "$CORE_PEER_TLS_ENABLED" = "false" ]; then
     set -x
-    PEER_CONN_PARMS="--peerAddresses peer0.org1.example.com:7051 --peerAddresses 52.83.251.211:8021"
+    PEER_CONN_PARMS="--peerAddresses peer0.org1.example.com:7051 --peerAddresses peer0.org2.example.com:8021"
     peer chaincode invoke -o orderer1.example.com:7050 -C $CHANNEL_NAME -n mycc $PEER_CONN_PARMS -c '{"Args":["invoke","a","b","10"]}' >&log.txt
     res=$?
     set +x
