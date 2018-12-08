@@ -2,7 +2,7 @@
 
 先进入目录： 
 
-cd test-testnet/bin 
+cd testnet/bin 
 
 下载所必需的镜像： 
 
