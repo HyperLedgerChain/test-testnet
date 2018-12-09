@@ -2,13 +2,11 @@
 
 先进入目录： 
 
-cd test-testnet/bin 
+cd bin 
 
 下载所必需的镜像： 
 
 ./get-docker-images.sh 
-
-下载完之后执行测试 fabricKafka Kafka based fabric network setup Distribute deployment. 
 
 主机1：18.179.212.4（东京） 主机2：52.83.251.211（宁夏）
 
